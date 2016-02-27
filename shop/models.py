@@ -69,4 +69,17 @@ class KeyWord(TranslatableModel):
     )
     facebook_img = ImageField(verbose_name=_('Facebook Image'), upload_to='/facebook', blank=True, null=True)
 
+    is_index = models.BooleanField(default=False, verbose_name=_('Is index?'),
+                                   help_text=_('Check if the keyword belongs to the homepage'))
+
     twitter_img = ImageField(verbose_name=_('Twitter Image'), upload_to='/twitter', blank=True, null=True)
+
+    # DONE: Redefine the save so there is only one keyword with is_index=True
+    def save(self, *args, **kwargs):
+        if self.is_index:
+            index_keyowrds = KeyWord.objects.filter(is_index=True)
+            for key in index_keyowrds:
+                key.is_index = False
+                key.save()
+            self.is_index = True
+        super(KeyWord, self).save(args, kwargs)
