@@ -11,7 +11,7 @@ class Category(TranslatableModel):
         slug=models.SlugField(max_length=200, db_index=True, unique=True)
     )
 
-    keyword = models.OneToOneField('KeyWord', related_name='category', verbose_name=_('Keyword'))
+    keyword = models.OneToOneField('KeyWord', related_name='category', verbose_name=_('Keyword'), null=True, blank=True)
 
     class Meta:
         # ordering = ('name',)
@@ -39,7 +39,7 @@ class Product(TranslatableModel):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    keyword = models.OneToOneField('KeyWord', related_name='product', verbose_name=_('Keyword'))
+    keyword = models.OneToOneField('KeyWord', related_name='product', verbose_name=_('Keyword'), null=True, blank=True)
 
     class Meta:
         ordering = ('-created',)
