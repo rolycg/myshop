@@ -13,7 +13,7 @@ def product_list(request, category_slug=None):
                                      translations__language_code=request.LANGUAGE_CODE,
                                      translations__slug=category_slug)
         products = products.filter(category=category)
-    return render(request, 'shop/product/list.html', {'category': category,
+    return render(request, 'shop/base_new.html', {'category': category,
                                                       'categories': categories,
                                                       'products': products})
 

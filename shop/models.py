@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from parler.models import TranslatableModel, TranslatedFields
+from sorl.thumbnail import ImageField
+from django.utils.translation import gettext_lazy as _
 
 
 class Category(TranslatableModel):
@@ -9,10 +11,12 @@ class Category(TranslatableModel):
         slug=models.SlugField(max_length=200, db_index=True, unique=True)
     )
 
+    keyword = models.OneToOneField('KeyWord', related_name='category', verbose_name=_('Keyword'))
+
     class Meta:
         # ordering = ('name',)
-        verbose_name = 'category'
-        verbose_name_plural = 'categories'
+        verbose_name = _('category')
+        verbose_name_plural = _('categories')
 
     def __str__(self):
         return self.name
@@ -28,12 +32,14 @@ class Product(TranslatableModel):
         description=models.TextField(blank=True)
     )
     category = models.ForeignKey(Category, related_name='products')
-    image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+    image = ImageField(upload_to='products/%Y/%m/%d', blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    keyword = models.OneToOneField('KeyWord', related_name='product', verbose_name=_('Keyword'))
 
     class Meta:
         ordering = ('-created',)
@@ -44,3 +50,23 @@ class Product(TranslatableModel):
 
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
+
+
+class KeyWord(TranslatableModel):
+    class Meta:
+        verbose_name = _('Keyword')
+        verbose_name_plural = _('Keywords')
+
+    translations = TranslatedFields(
+        keywords=models.CharField(max_length=200, verbose_name=_('Keywords'), help_text='keywords split by ;',
+                                  blank=True, null=True),
+        description=models.CharField(max_length=400, verbose_name=_('Google\'s description'),
+                                     help_text=_('What goes inside the description metadata'), blank=True, null=True),
+        facebook_msg=models.CharField(max_length=300, verbose_name=_('Facebook message'),
+                                      help_text=_('What goes inside og:title metadata'), blank=True, null=True),
+        twitter_msg=models.CharField(max_length=300, verbose_name=_('Twitter message'),
+                                     help_text=_('What goes inside twitter:title metadata'), blank=True, null=True),
+    )
+    facebook_img = ImageField(verbose_name=_('Facebook Image'), upload_to='/facebook', blank=True, null=True)
+
+    twitter_img = ImageField(verbose_name=_('Twitter Image'), upload_to='/twitter', blank=True, null=True)
