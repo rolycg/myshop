@@ -151,22 +151,24 @@
         <div class="container">
             <div class="header-bottom-left">
                 <div class="logo">
-                    <a href="index.html"><img src="{% static 'images/logo.png' %}" alt=" "/></a>
+                    <a href="/"><img src="{% static 'images/logo.png' %}" alt=" "/></a>
                 </div>
                 <div class="search">
-                    <input type="text" value="" onfocus="this.value = '';"
-                           onblur="if (this.value == '') {this.value = '';}">
-                    <input type="submit" value="SEARCH">
+                    <form action="{% url 'shop:search' %}">{% csrf_token %}
+                        <input type="text" value="" onfocus="this.value = '';"
+                               onblur="if (this.value == '') {this.value = '';}">
+                        <input type="submit" value="{% trans 'SEARCH' %}">
+                    </form>
 
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="header-bottom-right">
-                <div class="account"><a href="login.html"><span> </span>YOUR ACCOUNT</a></div>
+                <div class="account"><a href="{% url 'shop:login' %}"><span> </span>{% trans 'YOUR ACCOUNT' %}</a></div>
                 <ul class="login">
-                    <li><a href="login.html"><span> </span>LOGIN</a></li>
+                    <li><a href="{% url 'shop:login' %}"><span> </span>{% trans 'LOGIN' %}</a></li>
                     |
-                    <li><a href="register.html">SIGNUP</a></li>
+                    <li><a href="{% url 'shop:signup' %}">{% trans 'SIGNUP' %}</a></li>
                 </ul>
                 <div class="cart"><a href="#"><span> </span>CART</a></div>
                 <div class="clearfix"></div>
@@ -287,8 +289,8 @@
             </a>
         </div>
         <div class="products">
-            <h5 class="latest-product">LATEST PRODUCTS</h5>
-            <a class="view-all" href="product.html">VIEW ALL<span> </span></a>
+            <h5 class="latest-product">{% trans 'LATEST PRODUCTS' %}</h5>
+            <a class="view-all" href="{% url 'shop:all_products' %}">{% trans 'VIEW ALL' %}<span> </span></a>
         </div>
         <div class="product-left">
             <div class="col-md-4 chain-grid">
@@ -320,7 +322,7 @@
 									        <label for="rating-input-1-1" class="rating-star"> </label>
 							    	   </span>
                         </div>
-                        <a class="now-get get-cart" href="#">ADD TO CART</a>
+                        <a class="now-get get-cart" href="#">{% trans 'ADD TO CART' %}</a>
 
                         <div class="clearfix"></div>
                     </div>
@@ -399,8 +401,8 @@
             <div class="clearfix"></div>
         </div>
         <div class="products">
-            <h5 class="latest-product">LATEST PRODUCTS</h5>
-            <a class="view-all" href="product.html">VIEW ALL<span> </span></a>
+            <h5 class="latest-product">{% trans 'LATEST PRODUCTS' %}</h5>
+            <a class="view-all" href="{% url 'shop:all_products' %}">{% trans 'VIEW ALL' %}<span> </span></a>
         </div>
         <div class="product-left">
             <div class="col-md-4 chain-grid">
@@ -538,7 +540,8 @@
             <h6><a href="single.html">Lorem ipsum dolor</a></h6>
         </div>
     </div>
-    <a class="view-all all-product" href="product.html">VIEW ALL PRODUCTS<span> </span></a>
+    <a class="view-all all-product"
+       href="{% url 'shop:all_products' %}">{% trans 'VIEW ALL PRODUCTS' %}<span> </span></a>
 </div>
 <div class="clearfix"></div>
 </div>
@@ -554,13 +557,13 @@
                     <form>
                         <input type="text" value="Enter email here" onfocus="this.value = '';"
                                onblur="if (this.value == '') {this.value = 'Enter email here';}"/>
-                        <input type="submit" value="SUBSCRIBE"/>
+                        <input type="submit" value="{% trans 'SUBSCRIBE' %}"/>
                     </form>
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="latter-right">
-                <p>FOLLOW US</p>
+                <p>{% trans 'FOLLOW US' %}</p>
                 <ul class="face-in-to">
                     <li><a href="#"><span> </span></a></li>
                     <li><a href="#"><span class="facebook-in"> </span></a></li>
@@ -574,7 +577,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="footer-bottom-cate">
-                <h6>CATEGORIES</h6>
+                <h6>{% trans 'CATEGORIES' %}</h6>
                 <ul>
                     <li><a href="#">Curabitur sapien</a></li>
                     <li><a href="#">Dignissim purus</a></li>
@@ -591,7 +594,7 @@
                 </ul>
             </div>
             <div class="footer-bottom-cate bottom-grid-cat">
-                <h6>FEATURE PROJECTS</h6>
+                <h6>{% trans 'FEATURE PROJECTS' %}</h6>
                 <ul>
                     <li><a href="#">Curabitur sapien</a></li>
                     <li><a href="#">Dignissim purus</a></li>
@@ -603,7 +606,7 @@
                 </ul>
             </div>
             <div class="footer-bottom-cate">
-                <h6>TOP BRANDS</h6>
+                <h6>{% trans 'TOP BRANDS' %}</h6>
                 <ul>
                     <li><a href="#">Curabitur sapien</a></li>
                     <li><a href="#">Dignissim purus</a></li>
@@ -620,7 +623,7 @@
                 </ul>
             </div>
             <div class="footer-bottom-cate cate-bottom">
-                <h6>OUR ADDERSS</h6>
+                <h6>{% trans 'OUR ADDERSS' %}</h6>
                 <ul>
                     <li>Aliquam metus dui.</li>
                     <li>orci, ornareidquet</li>

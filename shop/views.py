@@ -14,8 +14,8 @@ def product_list(request, category_slug=None):
                                      translations__slug=category_slug)
         products = products.filter(category=category)
     return render(request, 'shop/base_new.html', {'category': category,
-                                                      'categories': categories,
-                                                      'products': products})
+                                                  'categories': categories,
+                                                  'products': products})
 
 
 def product_detail(request, id, slug):
@@ -33,3 +33,23 @@ def product_detail(request, id, slug):
                   {'product': product,
                    'cart_product_form': cart_product_form,
                    'recommended_products': []})
+
+
+def search(request):
+    language = request.LANGUAGE_CODE
+    raise NotImplemented()
+
+
+def login(request):
+    language = request.LANGUAGE_CODE
+    raise NotImplemented()
+
+
+def signup(request):
+    language = request.LANGUAGE_CODE
+    raise NotImplemented()
+
+
+def all_products(request):
+    language = request.LANGUAGE_CODE
+    raise NotImplemented()
