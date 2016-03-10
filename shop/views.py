@@ -1,7 +1,11 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_POST
+
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from .recommender import Recommender
+from django.utils import translation
 
 
 def product_list(request, category_slug=None):
@@ -16,6 +20,16 @@ def product_list(request, category_slug=None):
     return render(request, 'shop/base_new.html', {'category': category,
                                                   'categories': categories,
                                                   'products': products})
+
+
+@require_POST
+def set_language(request):
+    _next = request.POST['next']
+    if not _next:
+        _next = request.environ['HTTP_REFERER'].split('?')[0]
+    translation.activate(request.POST['language'])
+    request.session[translation.LANGUAGE_SESSION_KEY] = request.POST['language']
+    return HttpResponseRedirect(_next)
 
 
 def product_detail(request, id, slug):
