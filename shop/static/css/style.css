@@ -1440,6 +1440,21 @@ select.in-drop {
 
 }
 
+.lang_sep {
+    margin-right: 10px;
+}
+
+.un_selected:hover {
+    cursor: pointer;
+    color: lightgrey;
+    text-decoration: none;
+}
+
+.selected, .selected:hover {
+    cursor: default;
+    text-decoration: none;
+}
+
 /*--responsive--*/
 @media (max-width: 1440px) {
 

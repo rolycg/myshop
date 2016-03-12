@@ -130,20 +130,19 @@
                 <div class="clearfix"></div>
             </div>
             <div class="top-header-right">
-                <form action="{% url 'shop:set_language' %}" method="post">{% csrf_token %}
+                <form name="lang_selector_form" action="{% url 'shop:set_language' %}" method="post">{% csrf_token %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
                     <input name="next" type="hidden" value="{{ redirect_to }}"/>
-                    <select name="language">
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% get_available_languages as LANGUAGES %}
-                        {% get_language_info_list for LANGUAGES as languages %}
-                        {% for language in languages %}
-                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
-                                    selected="selected"{% endif %}>
-                                {{ language.name_local|capfirst }} ({{ language.code }})
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Go"/>
+                    <input name="language" type="hidden" value="{{ LANGUAGE_CODE }}">
+
+                    {% for language in languages %}
+                        {% if not language.code == LANGUAGE_CODE %}
+                            <a onclick="SubmitForm('{{ language.code }}')" data-language="{{ LANGUAGE_CODE }}"
+                               class="in-of un_selected">{{ language.name_local|capfirst }}</a>
+                        {% endif %}
+                    {% endfor %}
                 </form>
                 <!---->
                 <div class="clearfix"></div>
@@ -643,5 +642,15 @@
         </div>
     </div>
 </div>
+<script>
+    function SubmitForm(text) {
+        document.forms["lang_selector_form"].elements['language'].value = text;
+        document.forms["lang_selector_form"].submit();
+    }
+
+    {#    var ps = document.getElementsByName('language')[0];#}
+    {#    ps.addEventListener('click', SubmitSomething, false);#}
+</script>
 </body>
+
 </html>
