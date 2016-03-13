@@ -1,0 +1,95 @@
+{% extends "base_new.html" %}
+{% load i18n %}
+
+{% block center_content %}
+    <div class="register register-but">
+        <form name="signup_form" action="{% url 'shop:signup' %}" method="post">{% csrf_token %}
+            <div class="  register-top-grid">
+
+                <div class="mation">
+                    <h3>{% trans 'PERSONAL INFORMATION' %}</h3>
+
+                    {% if error %}
+                        <div id="big_error_message">
+                    {% else %}
+                        <div id="big_error_message" style="display: none">
+                    {% endif %}
+                    <h3>{% trans 'There is a problem with some of your fields' %}</h3>
+                    </div>
+
+                    <div>
+                        <a class="error_message">{% trans 'This field is obligatory' %}</a>
+                        <input type="text" name="first_name" value="" required placeholder="{% trans 'First Name' %}">
+                    </div>
+
+                    <div>
+                        <a class="error_message">{% trans 'This field is obligatory' %}</a>
+                        <input type="text" name="last_name" value="" required placeholder="{% trans 'Last Name' %}">
+                    </div>
+
+                    <div>
+                        <a class="error_message">{% trans 'This field is obligatory' %}</a>
+                        <input type="email" name="email" value="" required placeholder="{% trans 'Email Address' %}">
+                    </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="  register-bottom-grid">
+
+                    <div class="mation">
+                        <h3>{% trans 'LOGIN INFORMATION' %}</h3>
+
+                        <div id="big_error_message_confirm_pass" style="display: none">
+                            <h3>{% trans 'There is a problem with some of your fields' %}</h3>
+                        </div>
+                        <div>
+                            <a class="error_message">{% trans 'This field is obligatory' %}</a>
+                            <input type="password" name="password" value="" title="password" required
+                                   placeholder="{% trans 'Password' %}">
+                        </div>
+                        <div>
+                            <a class="error_message">{% trans 'This field is obligatory' %}</a>
+                            <input type="password" name="confirm_password" value="" title="confirm_password" required
+                                   placeholder="{% trans 'Confirm Password' %}">
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 10px">
+                    <input type="submit" value="submit">
+
+                    <div class="clearfix"></div>
+                </div>
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block OtherScripts %}
+    <script>
+        $(":password").each(function () {
+            $(this).keypress(function () {
+                $("#big_error_message_confirm_pass").slideUp("slow");
+            });
+        });
+        window.onsubmit = ValidateForm;
+        function ValidateForm() {
+            var count = 0;
+            $(":required").each(function () {
+                if ($(this).get(0).value == "") {
+                    count++;
+                    $(this).parent().first().slideDown("slow");
+                }
+            });
+            if (count > 0) {
+                return false;
+            }
+            {% block confirm_pass %}
+                if (document.getElementsByName("password")[0].value != document.getElementsByName("confirm_password")[0].value) {
+                    $("#big_error_message_confirm_pass>h3").text("Your passwords didn't match");
+                    $("#big_error_message_confirm_pass").slideDown();
+                    return false;
+                }
+            {% endblock %}
+        }
+    </script>
+{% endblock %}

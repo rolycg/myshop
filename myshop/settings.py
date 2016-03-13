@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.utils.translation import gettext_lazy as _
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -56,7 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware'
 )
 
 ROOT_URLCONF = 'myshop.urls'
@@ -95,7 +97,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en'
 
-from django.utils.translation import gettext_lazy as _
+
 
 LANGUAGES = (
     ('en', _('English')),
@@ -105,6 +107,7 @@ LANGUAGES = (
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
+
 
 TIME_ZONE = 'Cuba'
 
@@ -133,11 +136,11 @@ PAYPAL_TEST = True
 PARLER_LANGUAGES = {
     None: (
         {'code': 'en', },
-        {'code': 'es', },
+        {'code': 'es', }
     ),
     'default': {
         'fallback': 'en',
-        'hide_untranslated': False,
+        'hide_untranslated': False
     }
 }
 

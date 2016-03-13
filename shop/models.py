@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
 from django.core.exceptions import ValidationError
+from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class Category(TranslatableModel):
@@ -141,3 +143,12 @@ class FrontPagePicture(TranslatableModel):
     )
     url = models.URLField(verbose_name=_('URL'), blank=True, null=True)
     front_img = ImageField(verbose_name=_('Front Image'), upload_to='/front')
+
+
+class MyUser(User):
+    class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
+
+    def __str__(self):
+        return self.username
