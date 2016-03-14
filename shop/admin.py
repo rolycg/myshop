@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Discount
+from .models import Category, Product, Discount, MyUser
 from parler.admin import TranslatableAdmin
 from django.utils.translation import gettext_lazy as _
 
@@ -40,3 +40,4 @@ class DiscountAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Discount, DiscountAdmin)
+admin.site.register(MyUser)
