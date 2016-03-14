@@ -1,0 +1,48 @@
+{% extends "register.html" %}
+{% load i18n %}
+
+{% block center_content %}
+    <div class="account_grid">
+        <div class=" login-right">
+
+
+            <form name="login_form" action="{% url 'shop:login' %}" method="post">{% csrf_token %}
+                <h3>{% trans 'REGISTERED CUSTOMERS' %}</h3>
+
+                {% if error %}
+                    <div id="big_error_message">
+                {% else %}
+                    <div id="big_error_message" style="display: none">
+                {% endif %}
+                <h3>{% trans 'Your user name or password is not correct' %}</h3>
+                </div>
+
+                <p style="margin-bottom: 13px">{% trans 'If you have an account with us, please log in.' %}</p>
+
+
+                <div>
+                    <div>
+                        <a class="error_message">{% trans 'This field is obligatory' %}</a>
+                        <input type="email" name="email" required title="email"
+                               placeholder="{% trans 'Email Address' %}">
+                    </div>
+                    <div>
+                        <a class="error_message">{% trans 'This field is obligatory' %}</a>
+                        <input type="password" name="password" required title="password"
+                               placeholder="{% trans 'Password' %}">
+                    </div>
+                </div>
+                <input type="submit" value="Login">
+                {#                <a class="forgot" href="#">{% trans 'Forgot Your Password?' %}</a>#}
+            </form>
+        </div>
+        <div class=" login-left">
+            <h3>{% trans 'NEW CUSTOMERS' %}</h3>
+
+            <p>{% trans 'By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.' %}</p>
+            <a class="acount-btn" href="{% url 'shop:signup' %}">{% trans 'Create an Account' %}</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endblock %}
+{#TODO: Add an error message#}

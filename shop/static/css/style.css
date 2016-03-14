@@ -1024,12 +1024,24 @@ p.m_text {
     text-transform: uppercase;
 }
 
-.login-right input[type="text"] {
+.login-right input[type="text"], input[type="email"], input[type="password"] {
     border: 1px solid #DDDBDB;
-    outline-color: #fb4d01;
     width: 96%;
-    font-size: 0.9em;
-    padding: 10px;
+    font-size: 1em;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+input[type="text"], .register-top-grid input[type="email"], .register-bottom-grid input[type="email"], input[type="password"], .register-top-grid input[type="password"], input[type="email"] {
+    outline-color: unset;
+    outline-style: none;
+    transition: border-color ease-in-out .25s;
+    width: 96%;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, .register-top-grid input[type="email"]:focus, input[type="password"]:focus, .register-bottom-grid input[type="email"]:focus {
+    border-color: #fb4d01;
 }
 
 .login-right input[type="submit"] {
@@ -1072,13 +1084,18 @@ a.forgot {
     text-transform: uppercase;
 }
 
-.register-top-grid input[type="text"], .register-bottom-grid input[type="text"] {
+.register-top-grid input[type="text"], .register-bottom-grid input[type="text"], .register-top-grid input[type="email"], .register-bottom-grid input[type="email"] {
     border: 1px solid #EEE;
-    outline-color: #FF5B36;
-    width: 85%;
+    outline-color: unset;
+    outline-style: none;
+    width: 96%;
     font-size: 1em;
     padding: 0.5em;
     margin: 0.5em 0;
+}
+
+input[type="text"]:focus {
+    border-color: #fb4d01;
 }
 
 .checkbox {
@@ -1186,7 +1203,7 @@ a.forgot {
 }
 
 .register {
-    padding: 4em 0 2em;
+    padding: 1em 4em 2em;
 }
 
 /*--footer--*/
@@ -1453,6 +1470,28 @@ select.in-drop {
 .selected, .selected:hover {
     cursor: default;
     text-decoration: none;
+}
+
+.error_message {
+    color: red;
+    display: none;
+}
+
+.error_field {
+    border: 5px solid red;
+}
+
+#big_error_message, #big_error_message_confirm_pass {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: darkred;
+    padding: 10px;
+    width: 96%;
+}
+
+#big_error_message > h3, #big_error_message_confirm_pass > h3 {
+    color: white;
+    text-align: center;
 }
 
 /*--responsive--*/

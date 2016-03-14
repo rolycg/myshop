@@ -1,7 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_POST
-
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from .recommender import Recommender
@@ -17,9 +16,9 @@ def product_list(request, category_slug=None):
                                      translations__language_code=request.LANGUAGE_CODE,
                                      translations__slug=category_slug)
         products = products.filter(category=category)
-    return render(request, 'shop/base_new.html', {'category': category,
-                                                  'categories': categories,
-                                                  'products': products})
+    return render(request, 'base_new.html', {'category': category,
+                                             'categories': categories,
+                                             'products': products})
 
 
 @require_POST
@@ -54,14 +53,32 @@ def search(request):
     raise NotImplemented()
 
 
-def login(request):
-    language = request.LANGUAGE_CODE
-    raise NotImplemented()
+def login(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(available=True)
+    if category_slug:
+        category = get_object_or_404(Category,
+                                     translations__language_code=request.LANGUAGE_CODE,
+                                     translations__slug=category_slug)
+        products = products.filter(category=category)
+    return render(request, 'login.html', {'category': category,
+                                          'categories': categories,
+                                          'products': products})
 
 
-def signup(request):
-    language = request.LANGUAGE_CODE
-    raise NotImplemented()
+def signup(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(available=True)
+    if category_slug:
+        category = get_object_or_404(Category,
+                                     translations__language_code=request.LANGUAGE_CODE,
+                                     translations__slug=category_slug)
+        products = products.filter(category=category)
+    return render(request, 'register.html', {'category': category,
+                                             'categories': categories,
+                                             'products': products})
 
 
 def all_products(request):
