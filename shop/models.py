@@ -90,12 +90,12 @@ class KeyWord(TranslatableModel):
         twitter_msg=models.CharField(max_length=300, verbose_name=_('Twitter message'),
                                      help_text=_('What goes inside twitter:title metadata'), blank=True, null=True),
     )
-    facebook_img = ImageField(verbose_name=_('Facebook Image'), upload_to='/facebook', blank=True, null=True)
+    facebook_img = ImageField(verbose_name=_('Facebook Image'), upload_to='facebook', blank=True, null=True)
 
     is_index = models.BooleanField(default=False, verbose_name=_('Is index?'),
                                    help_text=_('Check if the keyword belongs to the homepage'))
 
-    twitter_img = ImageField(verbose_name=_('Twitter Image'), upload_to='/twitter', blank=True, null=True)
+    twitter_img = ImageField(verbose_name=_('Twitter Image'), upload_to='twitter', blank=True, null=True)
 
     # DONE: Redefine the save so there is only one keyword with is_index=True
     def save(self, *args, **kwargs):
